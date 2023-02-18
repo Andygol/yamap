@@ -1,2 +1,2 @@
 # yamap
-Yet Ain't Map – deployment OSM infrastructure project inspired by osm-seed
+Yamap Ain't Map – deployment OSM infrastructure project inspired by osm-seed
