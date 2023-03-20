@@ -1,0 +1,5 @@
+version: '3'
+
+services:
+  apitools:
+    command: /apidb-tools.sh init

@@ -1,0 +1,6 @@
+version: '3'
+
+services:
+  apitools:
+    # to keep container running https://stackoverflow.com/a/55907197
+    command: tail -f /dev/null

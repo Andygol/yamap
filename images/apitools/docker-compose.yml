@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  apitools:
+    container_name: osm-apitools
+    image: yamap-osm-apitools
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes: 
+      - ./../../data/:/mnt/data
+    env_file:
+      - ./../../env/apidb.env
+      - ./../../env/popdb.env
+    
+    # to keep container running https://stackoverflow.com/a/55907197
+    # command: tail -f /dev/null
+
+    networks:
+      - apidb
+
+networks:
+  apidb:

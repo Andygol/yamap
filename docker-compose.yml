@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+  apidb:
+    container_name: osm-apidb
+    image: yamap-osm-apidb
+    build:
+      context: ./images/apidb
+      dockerfile: Dockerfile
+      args:
+        - POSTGRES_DB_SCHEMA=${POSTGRES_DB_SCHEMA}
+    volumes: 
+      - ./data/apidb:/var/lib/postgresql/data
+    env_file:
+      - ./env/apidb.env
+    # and use symlinked .env for envioronments defenition in this docker-compose.yml
+
+    healthcheck:
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}'"]
+      interval: 30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+    ports:
+      - 5432:5432
+    networks:
+      - apidb
+
+  apitools:
+    container_name: osm-apitools
+    image: yamap-osm-apitools
+    build:
+      context: ./images/apitools
+      dockerfile: Dockerfile
+    volumes: 
+      - ./data/:/mnt/data
+    env_file:
+      - ./env/apidb.env
+      - ./env/popdb.env
+      - ./env/repapidb.env
+
+    networks:
+      - apidb
+    depends_on:
+      apidb:
+        condition: service_healthy
+
+networks:
+  apidb:
