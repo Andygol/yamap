@@ -11,7 +11,7 @@ From there, updates are sent to other local services, which in turn reduce the l
 
 ```mermaid
 flowchart TD
-    A[Planet OSM] -->|diffs| B(Local API DB\nwith regional\nextract)
+    A[Planet OSM] -->|diffs| B(Local API DB<br/>with regional<br/>extract)
     B -->|regional extract| C[local diffs]
     C --> D[fa:fa-search Search]
     C --> E[fa:fa-database Overpass Turbo]
